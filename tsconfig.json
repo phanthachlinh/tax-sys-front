@@ -3,11 +3,14 @@
         "outDir": "./dist/",
         "sourceMap": true,
         "noImplicitAny": true,
-        "module": "es6",
+        "module": "esNext",
         "target": "es5",
         "jsx": "react",
-        "types": ["react","node"],
+        "types": ["react","node","jest","enzyme","redux-mock-store","react-router-dom","history","axios","@types/react-transition-group"],
+        "lib": ["dom", "esnext"],
+        "esModuleInterop": true,
         "moduleResolution": "node",
-        "allowSyntheticDefaultImports":true
+        "allowSyntheticDefaultImports":true,
+        "suppressImplicitAnyIndexErrors": true
     }
 }
