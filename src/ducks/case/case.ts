@@ -1,19 +1,17 @@
 import axios,{AxiosResponse} from 'axios';
-export default (state:any = {count:0,results:[]}, action:any={payload:{data:{count:0,results:[]}}})=>{
+export default (state:IState = {count:0,results:[]}, action:ICaseAction={type:'',payload:{status:0,data:{count:0,results:[]}}})=>{
+
   switch(action.type){
     case CaseTypes.GET_CASES:
-
       return {...action.payload.data};
     case CaseTypes.POST_CASE:
       if(action.payload.status == 422)
          return state
-      if(action.meta.page === 1){
-        let newState:{count:number,results:Array<ICase>} = {...state}
-        newState.results.pop()
-        newState.results.unshift(action.payload.data)
-        return newState
-      }
-      return state
+      let newState:{count:number,results:Array<ICase>} = {...state}
+      newState.results.pop()
+      newState.results.unshift(action.payload.data)
+      return newState
+
    case CaseTypes.DELETE_CASE:
       if(action.payload.status===422)
         return state
@@ -35,10 +33,10 @@ export default (state:any = {count:0,results:[]}, action:any={payload:{data:{cou
 }
 export interface ICase{
   _id: string,
-  status: Number,
+  status: number,
   country: string,
   date_created: string,
-  FK_User: Number,
+  FK_User: number,
   FK_Mongo_Client: String
 }
 interface IGetCasesAction{
@@ -102,19 +100,30 @@ export const CaseActions = {
       }
     }
   },
-  putCase:(_id:string,status:number, country:string ,page:number,date_created:string,userId:number, clientId:string):IPutCaseAction =>{
+  putCase:(_id:string,status:number, country:string):IPutCaseAction =>{
     return {
       type: CaseTypes.PUT_CASE,
       payload: axios.put('http://localhost:8888/case/',{
         _id:_id,
         status:0,
         country:country,
-        page:page,
-        date_created:date_created,
-        FK_User: userId,
-        FK_Mongo_Client: clientId
-      })
 
+      })
     }
   }
+}
+interface ICaseAction{
+  type: string,
+  payload:{
+    status:number,
+    data: any
+  },
+  meta?:{
+    id?:string,
+    page?: number
+  }
+}
+interface IState{
+  count:number,
+  results: Array<ICase>
 }

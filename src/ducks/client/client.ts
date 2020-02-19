@@ -6,7 +6,10 @@ export default function(state: {count:number,results:Array<IClient>} = {count:0,
       if(action.payload.status !== 200){
         return state
       }
-      return {action:ClientTypes.GET_CLIENTS,page:action.meta.page,count:action.payload.data.count,results:action.payload.data.results}
+      return {
+        page:action.payload.meta.page,
+        count:action.payload.data.count,
+        results:action.payload.data.results}
     case ClientTypes.DELETE_CLIENT:
 
       if(action.payload.status === 200){
