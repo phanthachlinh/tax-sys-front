@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { ReactText } from 'react';
 export default function(state: {count:number,results:Array<IClient>} = {count:0,results:[]},action:any ){
   switch (action.type){
     case ClientTypes.GET_CLIENTS:
@@ -11,7 +10,7 @@ export default function(state: {count:number,results:Array<IClient>} = {count:0,
 
       if(action.payload.status === 200){
         let newState:any = {};
-        newState.results = state.results.filter(function(value, index, arr){
+        newState.results = state.results.filter(function(value:IClient, _index:number){
           return value._id != action.payload.data._id
         });
         newState.count = state.count - 1
@@ -27,7 +26,7 @@ export default function(state: {count:number,results:Array<IClient>} = {count:0,
       }
       return state;
     case ClientTypes.PUT_CLIENT:
-      let updatedClientIndex = state.results.findIndex(function(value, index, arr){
+      let updatedClientIndex = state.results.findIndex(function(value:IClient, _index:number){
         return value._id === action.payload.data._id
       });
       state.results[updatedClientIndex] = action.payload.data;
@@ -106,7 +105,4 @@ interface IClientActions{
   deleteClient:any,
   postClient:any,
   updateClient:any
-}
-
-function getIndexOfClient(id:String,clients:Array<IClient>){
 }

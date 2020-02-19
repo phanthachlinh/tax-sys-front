@@ -4,7 +4,6 @@ import {ClientActions, IClient, ClientTypes} from '../ducks/client/client';
 import ClientListItem from '../components/clientListItem';
 import AddClientForm from '../components/addClientForm';
 import UpdateClientForm from '../components/updateClientForm';
-import {StyledButton} from '../shared/styledComponents'
 import styled from 'styled-components'
 import {MediaQueries} from '../shared/mediaQueries'
 import Pagination from '../components/pagination';
@@ -35,19 +34,21 @@ class ClientsPage extends React.Component<ClientsPageProps,ClientsPageState>{
     this.props.getClients(this.state.page,this.state.searchTerm)
   }
 
-  componentDidUpdate(prevProps:ClientsPageProps) {
+  componentDidUpdate() {
     console.log(this.props.clients.action)
     if(this.props.clients.action == ClientTypes.DELETE_CLIENT){
       console.log('called2')
       this.props.getClients(this.state.page,this.state.searchTerm)
     }
-  
+
   }
   addClientHandler(e:any){
     e.preventDefault();
     let formData: any = new FormData((document.getElementById('addClient') as unknown) as HTMLFormElement);
-
-    let inputs:Array<any> = Array.from(document.getElementById('addClient').querySelectorAll('select,input'));
+    let inputs :Array<any>= []
+    let addClientForm:HTMLElement|null = document.getElementById('addClient')
+    if(addClientForm !== null && addClientForm.querySelectorAll('select,input'))
+      inputs = Array.from(addClientForm.querySelectorAll('select,input'));
     let fail: boolean = false;
     for(let i = 0; i<inputs.length;i++){
       if(inputs[i].value == ''){
@@ -82,7 +83,11 @@ class ClientsPage extends React.Component<ClientsPageProps,ClientsPageState>{
   }
   searchHandler(e:any){
     console.log('called3')
-    this.props.getClients(1,this.state.searchTerm)
+    this.setState({searchTerm:e.target.value},
+      ()=>
+      {
+        this.props.getClients(1,this.state.searchTerm)
+      })
   }
   render(){
     let clientsJSX = this.props.clients.results.map((client:IClient)=>{
@@ -115,7 +120,7 @@ class ClientsPage extends React.Component<ClientsPageProps,ClientsPageState>{
               </TopBarButtonWrapper>
               <SearchWrapper>
                 <FilterButton roundRight={false}><img style={{borderRadius:'0 5px 5px 0'}} src={require('../assets/images/filter.png').default}/></FilterButton>
-                <StyledInput type="text" placeholder='Search' onChange={(e:any)=>{this.setState({searchTerm:e.target.value},this.searchHandler.bind(this))}}/>
+                <StyledInput type="text" placeholder='Search' onChange={this.searchHandler.bind(this)}/>
                 <FilterButton roundRight={true}><img src={require('../assets/images/search.png').default}/></FilterButton>
               </SearchWrapper>
             </TopBar>
@@ -213,11 +218,7 @@ width:100%;
   flex-basis:75%;
 }
 `
-const StyledActionWrapper = styled.div`
-@media screen and (min-width:768px){
-  padding: 0 20px;
-}
-`
+
 const ClientsList = styled.div`
   display:flex;
   flex-wrap:wrap;

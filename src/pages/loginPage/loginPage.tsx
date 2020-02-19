@@ -145,7 +145,6 @@ import React,{Component} from 'react';
 import styled from 'styled-components';
 import {userActions} from '../../ducks/signIn/signIn';
 import {connect} from 'react-redux';
-import * as H from 'history'
 class LoginPage extends Component<IProps,IState>{
     constructor(props:IProps){
       super(props);
@@ -160,7 +159,7 @@ class LoginPage extends Component<IProps,IState>{
       this.props.history.push('/clients')
      }
    }
-   componentDidUpdate(prevProps: any, prevState: any, snapshot: any){
+   componentDidUpdate(prevProps: IProps){
      if(this.props.user!==null&& this.props.user !== 'fail'){
       this.props.history.push('/clients')
      }
@@ -217,9 +216,7 @@ flex-direction: column;
     color:gray
   }
 `
-interface IComponent{
 
-}
 interface IProps{
   signIn:any,
   history: any,

@@ -1,5 +1,19 @@
-import axios,{AxiosResponse} from 'axios';
-export default (state:any = {count:0,results:[]}, action:any={payload:{data:{count:0,results:[]}}})=>{
+import axios from 'axios';
+import { CaseTypes } from './case.enum';
+import { IPutCaseAction, IGetCasesAction, IPostCaseAction, ICaseAction, ICase } from './case.types';
+const initialState:ICaseState={
+  count:0,
+  results:[]
+}
+const initialAction:ICaseAction={
+  payload:{
+    data:{
+      count:0,
+      results:[]
+    }
+  }
+}
+export default (state:ICaseState = initialState, action:any=initialAction)=>{
   switch(action.type){
     case CaseTypes.GET_CASES:
 
@@ -33,43 +47,8 @@ export default (state:any = {count:0,results:[]}, action:any={payload:{data:{cou
       return state
   }
 }
-export interface ICase{
-  _id: string,
-  status: Number,
-  country: string,
-  date_created: string,
-  FK_User: Number,
-  FK_Mongo_Client: String
-}
-interface IGetCasesAction{
-  type: typeof CaseTypes.GET_CASES,
-  payload: any
-}
-interface IPutCaseAction{
-  type: typeof CaseTypes.PUT_CASE,
-  payload: any
-}
-interface IDeleteCaseAction{
-  type: typeof CaseTypes.DELETE_CASE,
-  payload: any,
-  meta:{
-    id: Number
-  }
-}
-interface IPostCaseAction{
-  type: typeof CaseTypes.POST_CASE,
-  payload: any,
-  meta:{
-    page: number
-  }
-}
 export type ICaseActionTypes = IGetCasesAction|IPostCaseAction|IDeleteCaseAction|IPutCaseAction
-export enum CaseTypes {
-  GET_CASES = 'GET_CASES',
-  POST_CASE = "POST_CASE",
-  DELETE_CASE = "DELETE_CASE",
-  PUT_CASE = "PUT_CASE"
-}
+
 export const CaseActions = {
   getCases:(id:String,page:Number):IGetCasesAction =>{
     return {
@@ -107,7 +86,7 @@ export const CaseActions = {
       type: CaseTypes.PUT_CASE,
       payload: axios.put('http://localhost:8888/case/',{
         _id:_id,
-        status:0,
+        status:status,
         country:country,
         page:page,
         date_created:date_created,
@@ -117,4 +96,8 @@ export const CaseActions = {
 
     }
   }
+}
+export interface ICaseState{
+  count: number,
+  results: Array<ICase>
 }

@@ -1,18 +1,16 @@
 import React from 'react';
-import { IRootReducer } from '../../ducks/rootReducer';
 import { connect } from 'react-redux';
-import { ClientActions, IClient } from '../../ducks/client/client';
-import { ICase } from '../../ducks/case/case';
+import { IClient } from '../../ducks/client/client';
 import { CaseActions } from '../../ducks/case/case';
 import CaseRow from '../../components/caseListItem';
 import AddCaseForm from '../../components/addCaseForm'
-import {getNameList} from 'country-list'
 import UpdateCaseForm from '../../components/updateCaseForm';
 import NotePopup from '../../components/notePopup';
 import FileManager from '../../components/fileManager';
 import { IUser } from '../../ducks/signIn/signIn';
 import styled from 'styled-components';
 import { MediaQueries } from '../../shared/mediaQueries';
+import { ICase } from '../../ducks/case/case.types';
 class ClientDetail extends React.Component<IProps,IState>{
   constructor(props:any){
     super(props);
@@ -29,16 +27,17 @@ class ClientDetail extends React.Component<IProps,IState>{
     }
   }
   componentDidMount(){
+    let client:IClient|undefined = this.props.clients.results.find((client:IClient)=>{return client._id === this.props.match.params.id})
+    if(client)
     this.setState(
-      {
-        client:this.props.clients.results.find((client:IClient)=>{return client._id === this.props.match.params.id})
-      },()=>{this.props.getCases(this.state.client._id,this.state.page)});
-      this.props.getCases(this.state.client._id,this.state.page)
+      {client:client},
+      ()=>{
+        this.props.getCases(this.state.client._id,this.state.page)
+      }
+    );
+    this.props.getCases(this.state.client._id,this.state.page)
   }
-  componentDidRecievedProps(prevProps:IProps,prevState:IState){
-
-  }
-  componentDidUpdate(prevProps:IProps,prevState:any){
+  componentDidUpdate(prevProps:IProps){
     if(prevProps.cases.results.length > this.props.cases.results.length){
       this.props.getCases(this.state.client._id);
     }
@@ -46,12 +45,13 @@ class ClientDetail extends React.Component<IProps,IState>{
   showAddFormHandler(){
     this.setState({showAddForm:!this.state.showAddForm})
   }
-  showUpdateFormHandler(ev:any,caseId:string){
+  showUpdateFormHandler(){
       this.setState({showUpdateForm: true})
   }
   setUpdatingCaseIdHandler(id:string){
-    let updatingCase = this.props.cases.results.find((casex:ICase)=>casex._id === id)
-    this.setState({updatingCase:updatingCase})
+    let updatingCase:ICase|undefined = this.props.cases.results.find((casex:ICase):boolean=>casex._id === id);
+    if(updatingCase)
+      this.setState({updatingCase:updatingCase})
   }
   showNotesHandler(id:string){
     this.setState({activeCaseNotes:id})

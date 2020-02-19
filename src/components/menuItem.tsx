@@ -2,7 +2,7 @@ import React from 'react';
 import {IMenuItemObj} from './menu';
 import styled from 'styled-components';
 import {MediaQueries} from '../shared/mediaQueries';
-export const MenuItem =  function({item,setIsMenuOpen,logoutHandler}:IMenuItemProps){
+export const MenuItem =  function({item,logoutHandler}:IMenuItemProps){
   return(
     <StyledMenuItem onClick={()=>{if(logoutHandler!==null) logoutHandler()}}>
       <StyledImage src={require('../assets/images/'+item.icon).default} />

@@ -7,7 +7,6 @@ export default function(state:IUser|null=null,action:any){
         return 'fail'
       else
         return {ID:action.payload.data.ID,isManager: action.payload.data.isManager}
-      break;
     case(SignInTypes.LOG_OUT):
       return null
     default:

@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { ICase, CaseActions } from '../ducks/case/case';
+import { CaseActions } from '../ducks/case/case';
 import {getNameList} from 'country-list';
 import { connect } from 'react-redux';
+import { ICase } from '../ducks/case/case.types';
 class UpdateCaseForm extends React.Component<IProps,{case:ICase,newCountry:string}>{
   constructor(props:any){
     super(props);
@@ -20,7 +21,6 @@ class UpdateCaseForm extends React.Component<IProps,{case:ICase,newCountry:strin
   }
   updateCaseHandler(ev:any){
     ev.preventDefault()
-    let country:string = (document.querySelector('#updateForm select') as any).value
     this.props.updateCase(this.props.updatingCase._id,0,this.state.newCountry,this.props.page,this.props.date_created,1,this.props.clientId)
   }
   changeCountryValueHandler(ev:any){

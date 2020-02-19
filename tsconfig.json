@@ -11,6 +11,11 @@
         "esModuleInterop": true,
         "moduleResolution": "node",
         "allowSyntheticDefaultImports":true,
-        "suppressImplicitAnyIndexErrors": true
+        "suppressImplicitAnyIndexErrors": true,
+        "noImplicitThis":true,
+        "strictNullChecks":true,
+        "strictPropertyInitialization":true,
+        "strictBindCallApply":true,
+        "strictFunctionTypes":true
     }
 }

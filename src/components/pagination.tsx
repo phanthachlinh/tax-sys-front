@@ -10,7 +10,6 @@ class Pagination extends React.Component<{totalCount:number,getClients:any,activ
   }
   render(){
     const pageItems:Array<any>=[]
-    let pageCount = (this.props.totalCount - (this.props.totalCount%5))/5
     getPaginationItems(this.props.totalCount,this.props.activePage).map((i:number)=>{
       pageItems.push(<PageNumber active={this.props.activePage==i} onClick={this.getClientsHandler.bind(this,i)}>{i}</PageNumber>)
     })
@@ -28,7 +27,6 @@ class Pagination extends React.Component<{totalCount:number,getClients:any,activ
   }
 }
 function getPaginationItems(totalCount:number,activePage:number){
-  let totalPages
   let pagesBefore = [];
   if(activePage == 2)
     pagesBefore.push(1)

@@ -22,7 +22,7 @@ class UpdateClientForm extends React.Component<IProps,IState>{
       telephone:''
     }
   }
-  componentDidUpdate(prevProps:any,prevState:any){
+  componentDidUpdate(prevProps:any){
     if(prevProps.clientID !== this.props.clientID){
       let updatingClient = this.props.clients.results.find((client:any)=>client._id === this.props.clientID);
         this.setState(updatingClient)

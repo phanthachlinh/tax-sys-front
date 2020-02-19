@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import {MenuItem, StyledImage} from './menuItem';
+import {MenuItem} from './menuItem';
 import { MediaQueries } from '../shared/mediaQueries';
 import { connect } from 'react-redux';
 import { userActions } from '../ducks/signIn/signIn';
@@ -28,7 +28,7 @@ const Menu:any= (props:any)=>{
           onClick={()=>{setIsMenuOpen(false)}}/>
         </div>*/}
         {menuItemsJSX}
-        <MenuItem logoutHandler={logoutHandler.bind(this,props)} key={-1} item={
+        <MenuItem logoutHandler={logoutHandler.bind(props)} key={-1} item={
           {
             name: 'Logout',
             location: '',
@@ -63,17 +63,7 @@ const MenuIconWrapper = styled.div`
 const MenuIcon = styled.img`
 
 `
-const CloseIcon = styled.img`
 
-`
-const StyledMenuItem = styled.div`
-`
-
-interface IMenu{
-  props: any,
-  key:any,
-  type:any
-}
 
 const StyledMenu = styled.div`
 background: #080939;

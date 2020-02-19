@@ -4,9 +4,7 @@ import {CaseActions} from '../ducks/case/case'
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { IClient } from '../ducks/client/client';
-interface IState{
-  countryCodes: Array<string>
-}
+
 interface IProps{
   show: boolean,
   page:number,
@@ -24,8 +22,7 @@ class AddCaseForm extends React.Component<IProps,{}>{
     let formx:any = document.querySelector('form select')
     this.props.addCase(formx.value,1,this.props.user.ID,this.props.client._id)
   }
-  componentDidUpdate(prevProps:IProps){
-  }
+
   render(){/*
     let nameList = getNameList();
 

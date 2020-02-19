@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import {IClient ,ClientActions} from '../ducks/client/client'
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {StyledButton} from '../shared/styledComponents'
-import {coming_from,civil_status} from '../pages/clientsPage';
 import {CSSTransition} from 'react-transition-group';
 import { StyledRow } from '../shared/styledComponents';
 import { MediaQueries } from '../shared/mediaQueries';
@@ -16,7 +15,7 @@ class ClientListItem extends React.Component<IProps,{openClient:boolean,isItemMe
       isItemMenuOpen: false
     }
   }
-  handleDelete(id:String){
+  handleDelete(){
       this.props.delete(this.props.client._id)
   }
   setupUpdateFormHandler(){
@@ -85,7 +84,7 @@ class ClientListItem extends React.Component<IProps,{openClient:boolean,isItemMe
         <ButtonWrapper>
           <StyledButtonView onClick={this.handleViewClient.bind(this)}><img style={{height: '40px',width:'80px',padding:'5px'}} src={require('../assets/images/view.svg').default} /></StyledButtonView>
           <StyledUpdateButton onClick={this.setupUpdateFormHandler.bind(this)}><img style={{height: '40px',width:'80px',padding:'5px'}} src={require('../assets/images/update.svg').default} /></StyledUpdateButton>
-          <StyledDeleteButton onClick={this.handleDelete.bind(this)}><img style={{height: '40px',width:'80px',padding:'5px'}} src={require('../assets/images/delete.svg').default} /></StyledDeleteButton>
+          <StyledDeleteButton onClick={this.handleDelete.bind(this,this.props.client._id)}><img style={{height: '40px',width:'80px',padding:'5px'}} src={require('../assets/images/delete.svg').default} /></StyledDeleteButton>
         </ButtonWrapper>
         </CSSTransition>
           </StyledRow>
@@ -207,26 +206,12 @@ const EmailWrapper = styled(NameWrapper)`
   display:block;
 }
 `;
-const StyledLink = styled(Link)`
-  color:black;
-  text-decoration:none
-`
+
 function mapDispatchToProps(dispatch:any){
   return{
     delete:(id:String)=>{dispatch(ClientActions.deleteClient(id))}
   }
 }
-const PropNames = {
-   first_name: 'First Name',
-  last_name: 'Last Name',
-  coming_from: 'Ad',
-  date_of_birth: 'Date of birth',
-  civil_status: 'Civil status',
-  amount_of_children: 'Amount of Children',
-  home_address: 'Home address',
-  foreign_address: 'Foreign address',
-  email: 'Email',
-  telephone: 'Telephone'
-}
+
 
 export default connect(null, mapDispatchToProps)(ClientListItem)
