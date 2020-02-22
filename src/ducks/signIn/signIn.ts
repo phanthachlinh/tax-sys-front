@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-export default function(state:IUser|null=null,action:any){
+export default function(state:IUser|null=null,action:any):IUser|null{
   switch (action.type){
     case(SignInTypes.GET_USER):
       if(!action.payload.data)
-        return 'fail'
+        return state
       else
         return {ID:action.payload.data.ID,isManager: action.payload.data.isManager}
     case(SignInTypes.LOG_OUT):

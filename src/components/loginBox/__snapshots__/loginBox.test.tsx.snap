@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Check Loginbox content should match the snapshot 1`] = `
+<Fragment>
+  <styled.div>
+    <label
+      htmlFor="username"
+    >
+      Username
+    </label>
+    <LoginInput
+      loginError={false}
+      name="username"
+      onChange={[Function]}
+      type="text"
+    />
+    <label
+      htmlFor="password"
+    >
+      Password
+    </label>
+    <LoginInput
+      loginError={false}
+      name="password"
+      onChange={[Function]}
+      type="password"
+    />
+    <LoginButton
+      onClick={[Function]}
+    >
+      Sign in
+    </LoginButton>
+  </styled.div>
+</Fragment>
+`;

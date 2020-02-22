@@ -11,7 +11,7 @@
         "esModuleInterop": true,
         "moduleResolution": "node",
         "allowSyntheticDefaultImports":true,
-        "suppressImplicitAnyIndexErrors": true,
+        "suppressImplicitAnyIndexErrors": false,
         "noImplicitThis":true,
         "strictNullChecks":true,
         "strictPropertyInitialization":true,

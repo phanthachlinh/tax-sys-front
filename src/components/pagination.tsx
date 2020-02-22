@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { MediaQueries } from '../shared/mediaQueries';
 class Pagination extends React.Component<{totalCount:number,getClients:any,activePage:number,searchTerm:string},{}>{
   getClientsHandler(pageNumber:number){
-    console.log(pageNumber)
     this.props.getClients(pageNumber,this.props.searchTerm)
   }
   render(){

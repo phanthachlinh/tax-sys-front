@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { CaseTypes } from './case.enum';
-import { IPutCaseAction, IGetCasesAction, IPostCaseAction, ICaseAction, ICase } from './case.types';
+import { IPutCaseAction, IGetCasesAction, IPostCaseAction, ICaseAction, ICase, IDeleteCaseAction } from './case.types';
 const initialState:ICaseState={
   count:0,
   results:[]
@@ -81,17 +81,13 @@ export const CaseActions = {
       }
     }
   },
-  putCase:(_id:string,status:number, country:string ,page:number,date_created:string,userId:number, clientId:string):IPutCaseAction =>{
+  putCase:(_id:string,status:number, country:string):IPutCaseAction =>{
     return {
       type: CaseTypes.PUT_CASE,
       payload: axios.put('http://localhost:8888/case/',{
         _id:_id,
         status:status,
-        country:country,
-        page:page,
-        date_created:date_created,
-        FK_User: userId,
-        FK_Mongo_Client: clientId
+        country:country
       })
 
     }

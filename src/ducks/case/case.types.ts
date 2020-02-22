@@ -1,3 +1,5 @@
+import { CaseTypes } from "./case.enum";
+
 export interface ICaseAction{
       payload:{
         data:{
@@ -8,7 +10,7 @@ export interface ICaseAction{
     }
 export interface ICase{
       _id: string,
-      status: Number,
+      status: number,
       country: string,
       date_created: string,
       FK_User: Number,

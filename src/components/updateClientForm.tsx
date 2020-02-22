@@ -39,7 +39,7 @@ class UpdateClientForm extends React.Component<IProps,IState>{
 
   }
   handleInput(e:any){
-    let newChange = {};
+    let newChange:any = {};
     newChange[e.target.name] = e.target.value
     this.setState(newChange)
   }

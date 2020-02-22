@@ -86,7 +86,7 @@ const StyledForm = styled.form`
   transform: translate(-50%);`
 function mapDispatchToProps(dispatch:any){
   return{
-    updateCase: (_id:string,status:number,country:string,page:number,date_created:string,userId:number,clientId:string)=>{dispatch(CaseActions.putCase(_id,status,country,page,date_created,userId,clientId))}
+    updateCase: (_id:string,status:number,country:string)=>{dispatch(CaseActions.putCase(_id,status,country))}
   }
 }
 interface IProps{

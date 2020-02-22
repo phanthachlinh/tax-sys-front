@@ -1,5 +1,7 @@
-import reducer,{IClient,ClientTypes,ClientActions} from './client';
+
 import axios from 'axios';
+import { IClient, ClientActions, ClientTypes } from './client';
+import reducer from './client';
 jest.mock('axios');
 const mockedAxios = axios as any
 let client:IClient = {
@@ -23,7 +25,10 @@ describe('Check return type of actions',()=>{
     expect(ClientActions.getClients(1)).toEqual(
       {
           type: ClientTypes.GET_CLIENTS,
-          payload:Promise.resolve({data:'hmm'})
+          payload:Promise.resolve({data:'hmm'}),
+          meta:{
+            page:1
+          }
       }
     )
   })
@@ -71,23 +76,26 @@ describe('Check state',()=>{
   it('should return n-1 state',()=>{
     clients[0]._id= '665';
 
-    expect(reducer({count:20,results:clients},
+    expect(reducer({count:5,results:clients},
       {
         type:ClientTypes.DELETE_CLIENT,
         payload:{
           status:200,
-          data: {id:665}
+          data: {_id:665}
         }
       }
     ).results.length).toEqual(4)
   })
   it('should return list of 5 clients',()=>{
-    expect(reducer({count:20,results:[]},
+    expect(reducer({count:5,results:clients},
       {
         type:ClientTypes.GET_CLIENTS,
         payload:{
           status:200,
-          data: {count:20,results:clients}
+          data: {count:5,results:clients},
+          meta:{
+            page:1
+          }
         }
       }
     ).results.length).toEqual(5)
@@ -104,7 +112,7 @@ describe('Check state',()=>{
     ).results.length).toEqual(5)
   })
   it('should return list with updated client',()=>{
-    expect(reducer({count:20,results:clients},
+    expect(reducer({count:5,results:clients},
       {
         type:ClientTypes.POST_CLIENT,
         payload:{
@@ -115,7 +123,7 @@ describe('Check state',()=>{
         }
 
       }
-    )).toEqual({count:20,results:clients})
+    )).toEqual({count:5,results:clients})
   })
   it('should return list with updated client',()=>{
     let newClient = {...client}
