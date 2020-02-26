@@ -1,7 +1,8 @@
 
 import axios from 'axios';
-import { IClient, ClientActions, ClientTypes } from './client';
+import { IClient, ClientActions } from './client';
 import reducer from './client';
+import { ClientTypes } from './client.enum';
 jest.mock('axios');
 const mockedAxios = axios as any
 let client:IClient = {
@@ -71,12 +72,12 @@ describe('Check state',()=>{
     clients=[];
   })
   it('should return default state',()=>{
-    expect(reducer({count:20,results:clients},'shit')).toEqual({count:20,results:clients})
+    expect(reducer({page:1,count:20,results:clients},'shit')).toEqual({page:1,count:20,results:clients})
   })
   it('should return n-1 state',()=>{
     clients[0]._id= '665';
 
-    expect(reducer({count:5,results:clients},
+    expect(reducer({page:1,count:5,results:clients},
       {
         type:ClientTypes.DELETE_CLIENT,
         payload:{
@@ -87,32 +88,36 @@ describe('Check state',()=>{
     ).results.length).toEqual(4)
   })
   it('should return list of 5 clients',()=>{
-    expect(reducer({count:5,results:clients},
+    expect(reducer({page:1,count:5,results:clients},
       {
         type:ClientTypes.GET_CLIENTS,
         payload:{
           status:200,
           data: {count:5,results:clients},
-          meta:{
-            page:1
-          }
+
+        },
+        meta:{
+          page:1
         }
       }
     ).results.length).toEqual(5)
   })
   it('should return default state',()=>{
-    expect(reducer({count:20,results:clients},
+    expect(reducer({page:1,count:20,results:clients},
       {
         type:ClientTypes.GET_CLIENTS,
         payload:{
           status:422,
           data:[]
+        },
+        meta:{
+          page:1
         }
       }
     ).results.length).toEqual(5)
   })
   it('should return list with updated client',()=>{
-    expect(reducer({count:5,results:clients},
+    expect(reducer({page:1,count:5,results:clients},
       {
         type:ClientTypes.POST_CLIENT,
         payload:{
@@ -123,12 +128,12 @@ describe('Check state',()=>{
         }
 
       }
-    )).toEqual({count:5,results:clients})
+    )).toEqual({page:1,count:5,results:clients})
   })
   it('should return list with updated client',()=>{
     let newClient = {...client}
     newClient._id='666'
-    expect(reducer({count:20,results:clients},
+    expect(reducer({page:1,count:20,results:clients},
       {
         type:ClientTypes.POST_CLIENT,
         payload:{

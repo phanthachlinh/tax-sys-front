@@ -1,8 +1,8 @@
 import React from 'react';
-import {HashRouter as Router, Route,Switch} from 'react-router-dom';
-import {createStore,applyMiddleware} from 'redux';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { createStore, applyMiddleware } from 'redux';
 import promise from 'redux-promise';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import rootReducer from './ducks/rootReducer';
 import ClientsPage from './pages/clientsPage';
 import LoginPage from './pages/loginPage/loginPage';
@@ -14,39 +14,40 @@ import styled from 'styled-components'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import { PersistGate } from 'redux-persist/integration/react';
 import { MediaQueries } from './shared/mediaQueries';
+import { composeWithDevTools } from 'remote-redux-devtools';
 const persistConfig = {
-  key: 'root',
-  storage,
+	key: 'root',
+	storage,
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-  let store = createStore(persistedReducer, applyMiddleware(promise));
-  let persistor = persistStore(store)
+let store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(promise)));
+let persistor = persistStore(store)
 
-  //let persistor = persistStore(createStore(undefined))
-  const App = function(){
-  return(
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Router>
-          <Switch>
-            <Route exact path='/' component={LoginPage} />
-            <>
-            <UserStateChecker />
-            <ContentWrapper>
-              <Menu />
-              <PageWrapper>
-              <Route path='/clients' component={ClientsPage} />
-              <Route path='/client/:id' component={ClientDetail} />
-              </PageWrapper>
-            </ContentWrapper>
-            </>
-          </Switch>
-        </Router>
-      </PersistGate>
-    </Provider>
-  )
+//let persistor = persistStore(createStore(undefined))
+const App = function() {
+	return (
+		<Provider store={store}>
+			<PersistGate loading={null} persistor={persistor}>
+				<Router>
+					<Switch>
+						<Route exact path='/' component={LoginPage} />
+						<>
+							<UserStateChecker />
+							<ContentWrapper>
+								<Menu />
+								<PageWrapper>
+									<Route path='/clients' component={ClientsPage} />
+									<Route path='/client/:id' component={ClientDetail} />
+								</PageWrapper>
+							</ContentWrapper>
+						</>
+					</Switch>
+				</Router>
+			</PersistGate>
+		</Provider>
+	)
 }
 const PageWrapper = styled.div`
   height: 90vh;

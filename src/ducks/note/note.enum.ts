@@ -1,0 +1,6 @@
+export enum NoteTypes {
+  GET_NOTES = 'GET_NOTES',
+  POST_NOTE = 'POST_NOTE',
+  DELETE_NOTE = "DELETE_NOTE",
+  PUT_NOTE = "PUT_NOTE"
+}

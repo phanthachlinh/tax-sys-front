@@ -1,0 +1,6 @@
+export enum FileTypes {
+  GET_FILES = "GET_FILES",
+  POST_FILE = "POST_FILE",
+  DELETE_FILE = "DELETE_FILE",
+  PUT_FILE = "PUT_FILE"
+}

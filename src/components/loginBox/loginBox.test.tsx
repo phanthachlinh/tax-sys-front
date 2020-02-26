@@ -7,7 +7,6 @@ import { IUser } from '../../ducks/signIn/signIn';
 Enzyme.configure({ adapter: new Adapter() });
 describe('Check Loginbox content',()=>{
   it('should contain User name label',()=>{
-    let newUser
     const component = shallow(<LoginBox signIn={()=>{}} user={null}/>)
     expect(component.contains(
       <label htmlFor="username">
@@ -22,25 +21,19 @@ describe('Check Loginbox content',()=>{
     )).toBeTruthy()
   })
   it('should contain 2 inputs',()=>{
-    let newUser
     const component = shallow(<LoginBox signIn={()=>{}} user={null}/>)
     expect(component.find(
       'LoginInput'
     ).length).toBe(2)
   })
   it('should contain A login button',()=>{
-    let newUser
     const component = shallow(<LoginBox signIn={()=>{}} user={null}/>)
     expect(component.find(
       'LoginButton'
     ).length).toBe(1)
   })
   it('should contain login button "Sign In" text',()=>{
-    let newUser
     const component = shallow(<LoginBox signIn={()=>{}} user={null}/>)
-    console.log(component.find(
-      'LoginButton'
-    ).text())
     expect(component.find(
       'LoginButton'
     ).text()).toBe('Sign in')

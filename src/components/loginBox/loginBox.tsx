@@ -34,14 +34,14 @@ export class LoginBox extends Component<IProps,IState>{
   render(){
     return(
       <>
-      {this.state.isUserLoggedIn&&<Redirect to="/client"/>}
-      <LoginWrapper>
-        <label htmlFor="username">Username</label>
-        <LoginInput loginError={this.state.loginError} type="text" name="username" onChange={this.changeUsernameHandler.bind(this)}/>
-        <label htmlFor="password">Password</label>
-        <LoginInput loginError={this.state.loginError} type="password" name="password" onChange={this.changePasswordHandler.bind(this)}/>
-        <LoginButton onClick={this.signInHandler.bind(this)}>Sign in</LoginButton>
-      </LoginWrapper>
+        {this.state.isUserLoggedIn&&<Redirect to="/clients"/>}
+        <LoginWrapper>
+          <label htmlFor="username">Username</label>
+          <LoginInput loginError={this.state.loginError} type="text" name="username" onChange={this.changeUsernameHandler.bind(this)}/>
+          <label htmlFor="password">Password</label>
+          <LoginInput loginError={this.state.loginError} type="password" name="password" onChange={this.changePasswordHandler.bind(this)}/>
+          <LoginButton onClick={this.signInHandler.bind(this)}>Sign in</LoginButton>
+        </LoginWrapper>
       </>
     )
   }

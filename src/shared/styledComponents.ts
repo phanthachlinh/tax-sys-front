@@ -25,7 +25,7 @@ export const StyledButton = styled.button`
   background: none;
   border-radius: 5px;
   border-style: solid
-  margin: 5px 0;
+  margin: 5px;
   width:50%;
   &:hover{
     color: white;
@@ -33,6 +33,6 @@ export const StyledButton = styled.button`
     border-color: blue;
   }
   @media screen and (${MediaQueries.tablet}){
-    height:40px;
+
   }
   `
